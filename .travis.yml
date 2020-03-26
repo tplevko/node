@@ -5,3 +5,12 @@ services:
 script:
   - docker build -t tplevko/node .
   - docker images tplevko/node
+
+before_deploy:
+  - docker login -u "$DOCKER_USERNAME" -p "$DOCKER_PASSWORD"
+
+deploy:
+  provider: script
+  script: docker push tplevko/node
+  on:
+    branch: master
